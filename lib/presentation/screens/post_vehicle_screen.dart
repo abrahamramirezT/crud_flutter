@@ -14,8 +14,16 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
   final _formKey = GlobalKey<FormState>();
   final _brandController = TextEditingController();
   final _modelController = TextEditingController();
-  final _electricRangeController = TextEditingController(); // Cambiado a TextEditingController
-  final _fuelConsumptionController = TextEditingController(); // Cambiado a TextEditingController
+  final _electricRangeController = TextEditingController();
+  final _fuelConsumptionController = TextEditingController();
+  final _idController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Simular generación automática de ID. Deja esto vacío ya que el ID se genera automáticamente en el backend.
+    _idController.text = 'ID Automatico';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +39,14 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
               key: _formKey,
               child: Column(
                 children: [
+                  TextFormField(
+                    controller: _idController,
+                    decoration: const InputDecoration(
+                      labelText: 'ID',
+                      hintText: 'ID AUTOMATICO',
+                    ),
+                    readOnly: true, // El campo es solo lectura.
+                  ),
                   TextFormField(
                     controller: _brandController,
                     decoration: const InputDecoration(labelText: 'Brand'),
@@ -52,7 +68,7 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
                     },
                   ),
                   TextFormField(
-                    controller: _electricRangeController, // Usar controlador de texto
+                    controller: _electricRangeController,
                     decoration: const InputDecoration(labelText: 'Electric Range'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -62,7 +78,7 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
                     },
                   ),
                   TextFormField(
-                    controller: _fuelConsumptionController, // Usar controlador de texto
+                    controller: _fuelConsumptionController,
                     decoration: const InputDecoration(labelText: 'Fuel Consumption'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -76,10 +92,12 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         final vehicle = VehicleModel(
+                          // El ID se debería manejar en el backend, así que no lo establecemos aquí.
+                          id: null,
                           brand: _brandController.text,
                           model: _modelController.text,
-                          electric_range: _electricRangeController.text, // Ahora es un String
-                          fuel_consumption: _fuelConsumptionController.text, // Ahora es un String
+                          electric_range: _electricRangeController.text,
+                          fuel_consumption: _fuelConsumptionController.text,
                         );
                         _postVehicle(context, vehicle);
                       }
@@ -99,7 +117,6 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
     try {
       final vehicleRepository = RepositoryProvider.of<VehicleRepository>(context);
 
-      // Mostrar datos del vehículo para depuración
       print('Posting vehicle: ${vehicle.toJson()}');
 
       await vehicleRepository.createVehicle(vehicle);
@@ -109,15 +126,13 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
       );
 
       Navigator.pop(context, true);
-    } catch (e, stackTrace) {
-      print('Error: $e\nStackTrace: $stackTrace');
+    } catch (e) {
+      // Mostrar información detallada del error en el SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${e.toString()}')),
+      );
 
-
-
-      Navigator.pop(context, true);
+      Navigator.pop(context, false);
     }
   }
-
-
-
 }

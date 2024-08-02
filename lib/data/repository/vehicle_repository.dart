@@ -16,10 +16,18 @@ class VehicleRepository {
       body: jsonEncode(vehicle.toJson()..remove('id')), // Exclude 'id' for creation
     );
 
-    if (response.statusCode != 201) {
-      throw Exception('Failed to create vehicle');
+    if (response.statusCode == 201) {
+      // La creación fue exitosa
+      print('Vehicle created successfully');
+    } else {
+      // Agregar información detallada en el mensaje de error
+      final responseBody = response.body.isNotEmpty
+          ? response.body
+          : 'No additional information available';
+      throw Exception('Failed to create vehicle: ${response.statusCode} - $responseBody');
     }
   }
+
 
   Future<VehicleModel> getVehicle(String id) async {
     final response = await http.get(
