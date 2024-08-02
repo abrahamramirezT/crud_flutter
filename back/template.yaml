@@ -1,0 +1,111 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Back Flu
+
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: python3.11
+    Architectures:
+      - x86_64
+
+Resources:
+
+  CreateVehicleFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: create_coche_hibrido/
+      Handler: app.lambda_handler
+      Events:
+        CreateIncidence:
+          Type: Api
+          Properties:
+            Path: /create_coche_hibrido
+            Method: post
+      Environment:
+        Variables:
+          RDS_HOST: "fluttermodelo.cpm62yu6ezkc.us-east-1.rds.amazonaws.com"
+          RDS_USER: "admin"
+          RDS_PASSWORD: "admin123"
+          RDS_DB: "vehicles"
+
+  ReadOneVehicleFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: read_one_coche_hibrido/
+      Handler: app.lambda_handler
+      Events:
+        GetOneIncidence:
+          Type: Api
+          Properties:
+            Path: /read_one_coche_hibrido/{vehicle_id}
+            Method: get
+      Environment:
+        Variables:
+          RDS_HOST: "fluttermodelo.cpm62yu6ezkc.us-east-1.rds.amazonaws.com"
+          RDS_USER: "admin"
+          RDS_PASSWORD: "admin123"
+          RDS_DB: "vehicles"
+
+  ReadAllVehicleFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: read_all_coche_hibrido/
+      Handler: app.lambda_handler
+      Events:
+        GetAllIncidence:
+          Type: Api
+          Properties:
+            Path: /read_all_coche_hibrido
+            Method: get
+      Environment:
+        Variables:
+          RDS_HOST: "fluttermodelo.cpm62yu6ezkc.us-east-1.rds.amazonaws.com"
+          RDS_USER: "admin"
+          RDS_PASSWORD: "admin123"
+          RDS_DB: "vehicles"
+
+  UpdateVehicleFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: update_coche_hibrido/
+      Handler: app.lambda_handler
+      Events:
+        UpdateIncidence:
+          Type: Api
+          Properties:
+            Path: /update_coche_hibrido/{vehicle_id}
+            Method: put
+      Environment:
+        Variables:
+          RDS_HOST: "fluttermodelo.cpm62yu6ezkc.us-east-1.rds.amazonaws.com"
+          RDS_USER: "admin"
+          RDS_PASSWORD: "admin123"
+          RDS_DB: "vehicles"
+
+  DeleteVehicleFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: delete_coche_hibrido/
+      Handler: app.lambda_handler
+      Events:
+        DeleteVehicleEvent:
+          Type: Api
+          Properties:
+            Path: /delete_coche_hibrido/{vehicle_id}
+            Method: delete
+      Environment:
+        Variables:
+          RDS_HOST: "fluttermodelo.cpm62yu6ezkc.us-east-1.rds.amazonaws.com"
+          RDS_USER: "admin"
+          RDS_PASSWORD: "admin123"
+          RDS_DB: "vehicles"
+
+
+
+
+
+
+
+
