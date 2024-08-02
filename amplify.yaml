@@ -3,16 +3,17 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Installing dependencies..."
-        - flutter pub get
+        - echo "Installing Flutter..."
+        - flutter --version # Verificar la versión de Flutter
+        - flutter pub get # Obtener dependencias
     build:
       commands:
-        - echo "Building the project..."
-        - flutter build web # Cambia esto si estás construyendo para iOS o Android
+        - echo "Building Flutter web app..."
+        - flutter build web --release # Construir la aplicación web
   artifacts:
-    baseDirectory: build/web # Cambia esto si el resultado de la construcción es diferente
+    baseDirectory: build/web # Directorio de salida de la construcción
     files:
       - '**/*'
   cache:
     paths:
-      - .pub-cache
+      - .pub-cache # Cache para las dependencias de Flutter
