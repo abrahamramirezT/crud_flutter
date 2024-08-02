@@ -23,7 +23,7 @@ class VehicleRepository {
 
   Future<VehicleModel> getVehicle(String id) async {
     final response = await http.get(
-      Uri.parse('$apiUrl/vehicles/$id'),
+      Uri.parse('$apiUrl/read_one_coche_hibrido/ 3$id'),
     );
 
     if (response.statusCode == 200) {

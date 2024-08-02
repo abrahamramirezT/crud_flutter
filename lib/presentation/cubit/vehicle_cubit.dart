@@ -11,8 +11,8 @@ class VehicleCubit extends Cubit<VehicleState> {
   Future<void> createVehicle(VehicleModel vehicle) async {
     try {
       emit(VehicleLoading());
-      await vehicleRepository.createVehicle(vehicle);
       fetchAllVehicles();
+      await vehicleRepository.createVehicle(vehicle);
       final vehicles = await vehicleRepository.getAllVehicles();
       emit(VehicleSuccess(vehicles: vehicles));
     } catch (e) {
@@ -33,8 +33,8 @@ class VehicleCubit extends Cubit<VehicleState> {
   Future<void> updateVehicle(VehicleModel vehicle) async {
     try {
       emit(VehicleLoading());
-      await vehicleRepository.updateVehicle(vehicle);
       fetchAllVehicles();
+      await vehicleRepository.updateVehicle(vehicle);
       final vehicles = await vehicleRepository.getAllVehicles();
       emit(VehicleSuccess(vehicles: vehicles));
     } catch (e) {
@@ -45,8 +45,8 @@ class VehicleCubit extends Cubit<VehicleState> {
   Future<void> deleteVehicle(String id) async {
     try {
       emit(VehicleLoading());
-      await vehicleRepository.deleteVehicle(id);
       fetchAllVehicles();
+      await vehicleRepository.deleteVehicle(id);
       final vehicles = await vehicleRepository.getAllVehicles();
       emit(VehicleSuccess(vehicles: vehicles));
     } catch (e) {

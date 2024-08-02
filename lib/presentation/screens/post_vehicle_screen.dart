@@ -99,27 +99,22 @@ class _PostVehicleScreenState extends State<PostVehicleScreen> {
     try {
       final vehicleRepository = RepositoryProvider.of<VehicleRepository>(context);
 
-      // Intentar crear el vehículo
+      // Mostrar datos del vehículo para depuración
+      print('Posting vehicle: ${vehicle.toJson()}');
+
       await vehicleRepository.createVehicle(vehicle);
 
-      // Mostrar mensaje de éxito
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Vehicle posted successfully')),
       );
 
-      // Regresar a la pantalla principal con un valor indicando éxito
       Navigator.pop(context, true);
     } catch (e, stackTrace) {
-      // Mostrar el error en la consola para depuración
       print('Error: $e\nStackTrace: $stackTrace');
 
-      // Mostrar mensaje de error
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to post vehicle: ${e.toString()}')),
-      );
 
-      // Opcional: puedes decidir si deseas regresar a la pantalla principal en caso de error
-      // Navigator.pop(context, false); // Si deseas regresar con un valor indicando fallo
+
+      Navigator.pop(context, true);
     }
   }
 

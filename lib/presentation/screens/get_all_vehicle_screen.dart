@@ -93,6 +93,7 @@ class VehicleListScreen extends StatelessWidget {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text('Id: ${vehicle.id}'),
                           Text('Model: ${vehicle.model}'),
                           Text('Electric Range: ${vehicle.electric_range}'),
                           Text('Fuel Consumption: ${vehicle.fuel_consumption}'),
