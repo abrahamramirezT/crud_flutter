@@ -3,17 +3,15 @@ frontend:
   phases:
     preBuild:
       commands:
-        - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        - sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-        - sudo apt-get update
-        - sudo apt-get install google-chrome-stable
-        - wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.10.2-stable.tar.xz
-        - tar xf flutter_linux_3.10.2-stable.tar.xz
+        - echo "Installing Flutter..."
+        - wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_3.13.1-stable.tar.xz
+        - tar xf flutter_linux_3.13.1-stable.tar.xz
         - export PATH="$PATH:`pwd`/flutter/bin"
+        - flutter precache
         - flutter doctor
-        - flutter pub get
     build:
       commands:
+        - echo "Building Flutter web app..."
         - flutter build web --release
   artifacts:
     baseDirectory: build/web
@@ -21,4 +19,4 @@ frontend:
       - '**/*'
   cache:
     paths:
-      - flutter/.pub-cache
+      - flutter/bin/cache
