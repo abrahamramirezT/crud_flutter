@@ -1,22 +1,21 @@
+
 version: 1
 frontend:
   phases:
     preBuild:
       commands:
         - echo "Installing Flutter..."
-        - wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_3.13.1-stable.tar.xz
-        - tar xf flutter_linux_3.13.1-stable.tar.xz
-        - export PATH="$PATH:`pwd`/flutter/bin"
-        - flutter precache
-        - flutter doctor
+        - flutter --version # Verificar la versión de Flutter
+        - flutter pub get # Obtener dependencias
     build:
       commands:
         - echo "Building Flutter web app..."
-        - flutter build web --release
+        - flutter build web --release # Construir la aplicación web
   artifacts:
-    baseDirectory: build/web
+    baseDirectory: build/web # Directorio de salida de la construcción
     files:
       - '**/*'
   cache:
     paths:
-      - flutter/bin/cache
+      - .pub-cache # Cache para las dependencias de Flutter
+  
