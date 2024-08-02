@@ -82763,7 +82763,7 @@ uy(a){return this.UX(a)},
 UX(a){var s=0,r=A.T(t.w9),q,p=this,o
 var $async$uy=A.U(function(b,c){if(b===1)return A.Q(c,r)
 while(true)switch(s){case 0:s=3
-return A.Y(A.ays(A.eS(p.a+"/read_one_coche_hibrido/ 3"+a),null),$async$uy)
+return A.Y(A.ays(A.eS(p.a+"/read_one_coche_hibrido/"+a),null),$async$uy)
 case 3:o=c
 if(o.b===200){q=A.awa(B.c_.QL(0,A.ant(A.amE(o.e).c.a.h(0,"charset")).ei(0,o.w),null))
 s=1
